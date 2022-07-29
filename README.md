@@ -30,6 +30,17 @@ spark = SparkSession.builder.appName('delta test').getOrCreate()
 deltatable = DeltaTable.forPath(spark, 'delta_sample')
 ```
 
+Output:
+```
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/project-area/jw4/deltatest/.venv/lib/python3.8/site-packages/delta/tables.py", line 352, in forPath
+    jdt = jvm.io.delta.tables.DeltaTable.forPath(jsparkSession, path)
+TypeError: 'JavaPackage' object is not callable
+
+'JavaPackage' object is not callable
+```
+
 # External links
 
 * [Getting hands dirty in Spark Delta Lake](https://medium.com/analytics-vidhya/getting-hands-dirty-in-spark-delta-lake-1963921e4de6)
