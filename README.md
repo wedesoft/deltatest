@@ -46,3 +46,4 @@ TypeError: 'JavaPackage' object is not callable
 * [Getting hands dirty in Spark Delta Lake](https://medium.com/analytics-vidhya/getting-hands-dirty-in-spark-delta-lake-1963921e4de6)
 * [Delta compatibility with Apache Spark](https://docs.delta.io/latest/releases.html)
 * [Delta Lake's Python documentation page](https://docs.delta.io/latest/api/python/index.html)
+* [Delta Lake quick start](https://docs.delta.io/latest/quick-start.html#set-up-apache-spark-with-delta-lake)
