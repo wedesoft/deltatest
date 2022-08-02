@@ -35,6 +35,24 @@ df = spark.read.format('delta').load('delta_sample')
 df.show()
 ```
 
+Output:
+
+```
++---+
+| id|
++---+
+|  7|
+|  2|
+|  4|
+|  1|
+|  5|
+|  9|
+|  8|
+|  6|
+|  3|
++---+
+```
+
 # External links
 
 * [Getting hands dirty in Spark Delta Lake](https://medium.com/analytics-vidhya/getting-hands-dirty-in-spark-delta-lake-1963921e4de6)
