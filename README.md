@@ -7,19 +7,9 @@ poetry init
 poetry add pyspark==3.2.2
 poetry add delta-spark==2.0.0
 poetry add ptpython==3.0.20
-poetry run pyspark --packages io.delta:delta-core_2.12:2.0.0
 ```
 
-Then try this on the Spark console:
-
-```Spark
-data = spark.range(1,5)
-data.write.format("delta").mode("overwrite").save("delta_sample")
-new_data = spark.range(5,10)
-new_data.write.format("delta").mode("append").save("delta_sample")
-```
-
-Exit and then run a Python console:
+Then run a Python console:
 
 ```Python
 poetry run ptpython
@@ -30,6 +20,12 @@ builder = SparkSession.builder.appName('deltatest') \
     .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
     .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
 spark = configure_spark_with_delta_pip(builder).getOrCreate()
+
+data = spark.range(1, 5)
+data.write.format('delta').mode('overwrite').save('delta_sample')
+
+new_data = spark.range(5,10)
+new_data.write.format('delta').mode('append').save('delta_sample')
 
 df = spark.read.format('delta').load('delta_sample')
 df.show()
