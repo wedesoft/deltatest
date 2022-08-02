@@ -22,23 +22,16 @@ new_data.write.format("delta").mode("append").save("delta_sample")
 Exit and then run a Python console:
 
 ```Python
-export SPARK_HOME=$PWD/.venv/lib/python3.8/site-packages/pyspark
 poetry run ptpython
 from pyspark.sql.session import SparkSession
-from delta.tables import DeltaTable
-spark = SparkSession.builder.appName('delta test').getOrCreate()
-deltatable = DeltaTable.forPath(spark, 'delta_sample')
-```
+from delta import configure_spark_with_delta_pip
 
-Output:
-```
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-  File "/project-area/jw4/deltatest/.venv/lib/python3.8/site-packages/delta/tables.py", line 352, in forPath
-    jdt = jvm.io.delta.tables.DeltaTable.forPath(jsparkSession, path)
-TypeError: 'JavaPackage' object is not callable
-
-'JavaPackage' object is not callable
+builder = SparkSession.builder.appName('deltatest') \
+    .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
+    .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
+spark = configure_spark_with_delta_pip(builder).getOrCreate()
+df = spark.read.format('delta').load('delta_sample')
+df.show()
 ```
 
 # External links
